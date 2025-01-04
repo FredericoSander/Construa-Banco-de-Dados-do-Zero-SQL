@@ -1,4 +1,4 @@
-# Construa-Banco-de-Dados-do-Zero-SQL
+# Construa Banco de Dados do Zero SQL
 
 ## Introdução
 O projeto consistiu na criação de um banco de dados relacional para o cenário de uma oficina mecânica. O banco de dados **Oficina_Mecanica** foi projetado para gerenciar as operações de uma oficina mecânica, incluindo o cadastro de clientes, funcionários, serviços, fornecedores, estoque de peças, ordens de serviço e pagamentos. Esta documentação descreve o esquema do banco de dados, detalhando as tabelas, suas respectivas colunas, chaves primárias, chaves estrangeiras e restrições aplicadas. Para validação do projeto foram persistidos um volume de dados, de forma a possibilitar a extração de informações utilizando queries em SQL.
@@ -234,3 +234,4 @@ Boas práticas, como normalização de dados e uso de chaves estrangeiras, garan
 ## Autor
 
 - [Frederico S N Cota](https://github.com/Sanderfn)
+
