@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Construa-Banco-de-Dados-do-Zero-SQL
 
 ## Introdução
@@ -235,3 +236,7 @@ Boas práticas, como normalização de dados e uso de chaves estrangeiras, garan
 
 - [Frederico S N Cota](https://github.com/Sanderfn)
 
+=======
+# Construa Banco de Dados do Zero - MySQL
+O projeto consistiu na criação de um banco de dados relacional para uma oficina, para possibilitar o controle das ordens de serviço geradas. Para validação do projeto foram persistidos um volume de dados, de forma a possibilitar a extração de informações utilizando queries em SQL.
+>>>>>>> 7d78b5ba26fc313195c010e28367e2500adafd2c
