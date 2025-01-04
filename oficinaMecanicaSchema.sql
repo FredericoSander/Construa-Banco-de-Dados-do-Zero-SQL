@@ -1,6 +1,8 @@
 -- criação do banco de dados para o cenário de Oficina Mecânica
-drop database Oficina_Mecanica;
+-- drop database Oficina_Mecanica;
 -- drop table OSCliente;
+
+-- show databases;
 create database Oficina_Mecanica;
 
 use Oficina_Mecanica;
@@ -21,8 +23,8 @@ create table cliente(
     constraint unique_cpf_client unique (CPF)
     );
 
-create table funcionários(
-	idFuncionário int auto_increment primary key,
+create table funcionarios(
+	idFuncionario int auto_increment primary key,
     Nome varchar(10),
     Sobrenome varchar(20),
     CPF char(11) not null,
@@ -38,11 +40,11 @@ create table funcionários(
     constraint unique_cpf_client unique (CPF)
     );
     
-create table serviços(
-	IdServiço int auto_increment primary key,
-    NomeServiço varchar(45) not null,
-    ValorServiço float,
-	Tiposerviço enum('Manutenção', 'Revisão')
+create table servicos(
+	IdServico int auto_increment primary key,
+    NomeServico varchar(45) not null,
+    ValorServico float,
+	Tiposervico enum('Manutenção', 'Revisão')
     );
 
 create table fornecedor(
@@ -63,7 +65,7 @@ create table fornecedor(
     );
 
 create table estoque(
-	idEProduto int auto_increment primary key,
+	idEProduto int auto_increment primary key, 
     idEFornecedor int,
 	nomeProduto varchar(45) not null,
     valorProduto float not null,
@@ -71,63 +73,47 @@ create table estoque(
     constraint fk_estoque_Fornecedor foreign key (idEFornecedor) references Fornecedor(idFornecedor)
     );
 
-create table ordemServiço(
-	idOServiço int auto_increment primary key,
-    statusServiço enum('Em análise', 'Em execução', 'Concluído') default 'Em análise',
-	dtOServiço date,
-    dtEntregaServiço date,   
-    idOSFuncionário int,
+create table ordemServico(
+	idOServico int auto_increment primary key,
+    statusServico enum('Em análise', 'Em execução', 'Concluído') default 'Em análise',
+	dtOServico date,
+    dtEntregaServico date,   
+    idOSFuncionario int,
     idOSCliente int,
-    constraint fk_ordemServiço_Funcionário foreign key (idOSFuncionário) references funcionários(idFuncionário),
-    constraint fk_ordemServiço_Cliente foreign key (idOSCliente) references funcionários(idCliente)
+    constraint fk_ordemServico_Funcionario foreign key (idOSFuncionario) references funcionarios(idFuncionario),
+    constraint fk_ordemServico_Cliente foreign key (idOSCliente) references cliente(idCliente)
 );
 
-create table OSfuncionários(
-	idOSFFuncionários int,
-	idOSfServiços int,
-    primary key(idOSFFuncionários,idOSfServiços),
-    constraint fk_OSFFuncionários_Funcionários foreign key (idOSFFuncionários) references funcionários(idFuncionário),
-    constraint fk_OSFFuncionários_Serviços foreign key (idOSfServiços) references ordemServiço(idOServiço) 
+create table OSfuncionarios(
+	idOSFFuncionarios int,
+	idOSfServicos int,
+    primary key(idOSFFuncionarios,idOSfServicos),
+    constraint fk_OSFFuncionarios_Funcionarios foreign key (idOSFFuncionarios) references funcionarios(idFuncionario),
+    constraint fk_OSFFuncionarios_Servicos foreign key (idOSfServicos) references ordemServico(idOServico) 
 ); 
 
 create table OSCliente(
-	idOSCServiço int,
+	idOSCServico int,
 	idOSCCliente int,
-    primary key(idOSCServiço,idOSCCliente),
-    constraint fk_OSCCliente_OSCServiço foreign key (idOSCServiço) references ordemServiço(idOServiço),
+    primary key(idOSCServico,idOSCCliente),
+    constraint fk_OSCCliente_OSCServico foreign key (idOSCServico) references ordemServico(idOServico),
     constraint fk_OSCCliente_OSCCliente foreign key (idOSCCliente ) references Cliente(idCliente)
    ); 
 
 create table OSEstoque(
 	idOSEProduto int,
-    idOSEServiços int,
+    idOSServicos int,
     idOSEFornecedor int,
-    primary key (idEProduto,isOSServiços),
-    constraint fk_OSEstoque_Serviços foreign key (idOSEServiços) references ordemServiço(idOServiço),
+    primary key (idOSEProduto,idOSServicos),
+    constraint fk_OSEstoque_Servicos foreign key (idOSServicos) references ordemServico(idOServico),
 	constraint fk_OSEstoque_Produto foreign key (idOSEProduto) references estoque(idEProduto),
 	constraint fk_OSEstoque_Fornecedor foreign key (idOSEFornecedor) references estoque(idEFornecedor)
 );
 
-create table OSServiços(
-	idOSSServiços int,
-    idSServiços int,
-    primary key(idOSSServiços,idSServiços),
-	constraint fk_OSServiços_Serviços foreign key (idOSSServiços) references ordemServiço(idOServiço),
-	constraint fk_OSServiços_Produto foreign key (idSServiços) references serviços(IdServiço)
-);
-
-create table pecaEstoque(
-	pecas_idPecas int,
-	estoque_idEstoque int,
-    primary key(peças_idPecas,Estoque_idEstoque),
-    constraint fk_pecaEstoque_pecas foreign key (pecas_idPecas) references pecas(Idpeca),
-    constraint fk_pecaEstoque_estoque foreign key (estoque_idEstoque) references Estoque(IdEstoque)
-);
-
-create table pecaOServico(
-	pecas_idOSPecas int,
-	os_idOServico int,
-    primary key(peças_idPecas,Estoque_idEstoque),
-    constraint fk_pecaOServico_pecas foreign key (pecas_idOSPecas) references pecas(Idpeca),
-    constraint fk_pecaOServico_OServico foreign key (os_idOServico) references Estoque(IdEstoque)
+create table OSServicos(
+	idOSSServicos int,
+    idSServicos int,
+    primary key(idOSSServicos,idSServicos),
+	constraint fk_OSServicos_Servicos foreign key (idOSSServicos) references ordemServico(idOServico),
+	constraint fk_OSServicos_Produto foreign key (idSServicos) references servicos(IdServico)
 );
