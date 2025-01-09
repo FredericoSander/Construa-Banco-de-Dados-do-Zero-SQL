@@ -1,15 +1,25 @@
-# Construa Banco de Dados do Zero SQL
+# Construa um Banco de Dados do Zero em SQL
 
-## Introdução
+## Índice 
+
+* [Construa um Banco de Dados do Zero em SQL](#construa-um-banco-de-dados-do-zero-em-sql)
+* [Índice](#índice)
+* [Descrição do Projeto](#descrição-do-projeto)
+* [Diagrama de Relacionamento](#diagrama-de-relacionamento)
+* [Consultas SQL Avançadas](#consultas-sql-avançadas)
+* [Técnicas e tecnologias utilizadas](#técnicas-e-tecnologias-utilizadas)
+* [Conclusão](#conclusão)
+* [Status do Projeto](#status-do-projeto)
+* [Acesse o Projeto](#acesse-o-projeto)
+
+## Descrição do Projeto
 O projeto consistiu na criação de um banco de dados relacional para o cenário de uma oficina mecânica. O banco de dados **Oficina_Mecanica** foi projetado para gerenciar as operações de uma oficina mecânica, incluindo o cadastro de clientes, funcionários, serviços, fornecedores, estoque de peças, ordens de serviço e pagamentos. Esta documentação descreve o esquema do banco de dados, detalhando as tabelas, suas respectivas colunas, chaves primárias, chaves estrangeiras e restrições aplicadas. Para validação do projeto foram persistidos um volume de dados, de forma a possibilitar a extração de informações utilizando queries em SQL.
-
----
 
 ## Diagrama de Relacionamento
 
 O diagrama abaixo apresenta a estrutura de relacionamento entre as principais tabelas do banco de dados **Oficina_Mecanica**. As chaves primárias e estrangeiras estão destacadas, mostrando como as tabelas se interconectam para garantir a integridade dos dados e facilitar o gerenciamento das operações da oficina.
 
-![Diagrama de Relacionamento](oficinaMecanica.png)
+![Diagrama de Relacionamento](https://github.com/FredericoSander/Construa-Banco-de-Dados-do-Zero-SQL/blob/main/Projeto/oficinaMecanica.png)
 
 ### Descrição do Diagrama
 
@@ -22,9 +32,7 @@ O diagrama abaixo apresenta a estrutura de relacionamento entre as principais ta
 
 Este diagrama ajuda a visualizar como os dados fluem dentro do banco de dados e como as tabelas se relacionam para garantir que todas as informações sejam armazenadas de maneira consistente e acessível.
 
----
-
-## 1. Tabela: `cliente`
+#### Tabela: `cliente`
 
 Tabela que armazena informações dos clientes da oficina.
 
@@ -46,9 +54,7 @@ Tabela que armazena informações dos clientes da oficina.
 INSERT INTO cliente (nome, cpf, endereco, telefone) VALUES ('João Silva', '12345678901', 'Rua A, 123', '(11) 98765-4321');
 ```
 
----
-
-## 2. Tabela: `funcionario`
+#### Tabela: `funcionario`
 
 Tabela que armazena informações sobre os funcionários da oficina.
 
@@ -70,9 +76,7 @@ Tabela que armazena informações sobre os funcionários da oficina.
 INSERT INTO funcionario (nome, cpf, funcao, telefone) VALUES ('Carlos Souza', '98765432100', 'Mecânico', '(11) 91234-5678');
 ```
 
----
-
-## 3. Tabela: `servico`
+#### Tabela: `servico`
 
 Tabela que armazena os serviços oferecidos pela oficina.
 
@@ -88,9 +92,7 @@ Tabela que armazena os serviços oferecidos pela oficina.
 INSERT INTO servico (descricao, valor) VALUES ('Troca de óleo', 150.00);
 ```
 
----
-
-## 4. Tabela: `fornecedor`
+#### Tabela: `fornecedor`
 
 Tabela que armazena informações sobre os fornecedores de peças e materiais.
 
@@ -111,9 +113,8 @@ Tabela que armazena informações sobre os fornecedores de peças e materiais.
 INSERT INTO fornecedor (nome, cnpj, contato) VALUES ('Auto Peças Ltda', '12345678000100', '(11) 3344-5566');
 ```
 
----
 
-## 5. Tabela: `estoque`
+#### Tabela: `estoque`
 
 Tabela que armazena informações sobre o estoque de peças e materiais.
 
@@ -135,9 +136,7 @@ Tabela que armazena informações sobre o estoque de peças e materiais.
 INSERT INTO estoque (descricao, quantidade, valor_unitario, id_fornecedor) VALUES ('Pneu Aro 15', 50, 250.00, 1);
 ```
 
----
-
-## 6. Tabela: `ordem_servico`
+#### Tabela: `ordem_servico`
 
 Tabela que armazena as ordens de serviço realizadas na oficina.
 
@@ -162,9 +161,7 @@ Tabela que armazena as ordens de serviço realizadas na oficina.
 INSERT INTO ordem_servico (data_criacao, status, id_cliente, id_funcionario, id_servico) VALUES ('2024-10-20', 'Em análise', 1, 1, 1);
 ```
 
----
-
-## 7. Tabela: `pagamento`
+#### Tabela: `pagamento`
 
 Tabela que armazena informações sobre os pagamentos relacionados às ordens de serviço.
 
@@ -186,11 +183,9 @@ Tabela que armazena informações sobre os pagamentos relacionados às ordens de
 INSERT INTO pagamento (data_pagamento, valor, metodo_pagamento, id_os) VALUES ('2024-10-25', 500.00, 'Dinheiro', 1);
 ```
 
----
-
 ## Consultas SQL Avançadas
 
-1. **Relatório de Clientes e suas Ordens de Serviço:**
+**Relatório de Clientes e suas Ordens de Serviço:**
 
 ```sql
 SELECT cliente.nome, ordem_servico.id_os, ordem_servico.status
@@ -198,7 +193,7 @@ FROM cliente
 JOIN ordem_servico ON cliente.id_cliente = ordem_servico.id_cliente;
 ```
 
-2. **Produtos em Estoque com Baixa Quantidade:**
+**Produtos em Estoque com Baixa Quantidade:**
 
 ```sql
 SELECT descricao, quantidade
@@ -206,7 +201,7 @@ FROM estoque
 WHERE quantidade < 10;
 ```
 
-3. **Total de Pagamentos por Método:**
+**Total de Pagamentos por Método:**
 
 ```sql
 SELECT metodo_pagamento, SUM(valor) AS total_pagamentos
@@ -214,7 +209,7 @@ FROM pagamento
 GROUP BY metodo_pagamento;
 ```
 
-4. **Atualizar Quantidade no Estoque após Venda:**
+**Atualizar Quantidade no Estoque após Venda:**
 
 ```sql
 UPDATE estoque
@@ -222,7 +217,13 @@ SET quantidade = quantidade - 1
 WHERE id_produto = 1;
 ```
 
----
+## Técnicas e tecnologias utilizadas
+
+- ``SQL``
+- ``MySQL WorkBench 8.0``
+- ``Modelagem de dados``
+- ``Git``
+- ``GitHub``
 
 ## Conclusão
 
@@ -230,8 +231,15 @@ O esquema do banco de dados **Oficina\_Mecanica** foi projetado para garantir um
 
 Boas práticas, como normalização de dados e uso de chaves estrangeiras, garantem que as informações sejam acessadas e gerenciadas de forma eficaz, contribuindo para a eficiência dos processos da oficina.
 
+## Status do Projeto
 
-## Autor
+![Status do Projeto](http://img.shields.io/static/v1?label=STATUS&message=Concluído&color=GREEN&style=for-the-badge)
 
-- [Frederico S N Cota](https://github.com/Sanderfn)
+## Acesse o Projeto
 
+Você pode acessar o projeto clicando [aqui](https://github.com/FredericoSander/Construa-Banco-de-Dados-do-Zero-SQL/tree/main/Projeto)
+
+## Autor    
+
+| [<img loading="lazy" src="https://avatars.githubusercontent.com/u/136928502?s=96&v=4" width=115><br><sub>Frederico Sander</sub>](https://github.com/FredericoSander)
+| :---: | 
